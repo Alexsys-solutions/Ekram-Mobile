@@ -328,13 +328,69 @@ Future<void> callApi(BuildContext context) async {
         context,
         MaterialPageRoute(builder: (context) => Accueil(userData: userData)),
       );
-      
-    
-      _showEnableLocationDialog(context);
+      _showEnableLocationDialog( context);
     } else {
-      
-
- showDialog(
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 40),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(7),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Icon(
+                    Icons.error,
+                    size: 50,
+                     color: AppColors.primaryColor,
+                  ),
+                  const SizedBox(height: 14),
+                  const Text(
+                    'Erreur d\'authentification',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Nom d\'utilisateur ou mot de passe incorrect',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 17, color: Colors.black),
+                  ),
+                  const SizedBox(height: 20),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.primaryColor ,
+                      iconColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      'Ok',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Erreur lors de l\'appel de l\'API: $e');
+    }
+    showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
@@ -343,8 +399,7 @@ Future<void> callApi(BuildContext context) async {
           ),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.8,
-            padding:
-                const EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 40),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 40),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(7),
@@ -353,30 +408,28 @@ Future<void> callApi(BuildContext context) async {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 const Icon(
-                 Icons.error, 
+                  Icons.error,
                   size: 50,
-                  color: AppColors.primaryColor
+                  color: AppColors.primaryColor ,
                 ),
                 const SizedBox(height: 14),
                 const Text(
-                  'Erreur d\'authentification',
+                  'Erreur de connexion',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.black),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                 ),
                 const SizedBox(height: 20),
                 const Text(
-               'Nom d\'utilisateur ou mot de passe incorrect',
+                  'Une erreur s\'est produite lors de l\'appel de l\'API. Veuillez réessayer.',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 17, color: Colors.black),
                 ),
-                
                 const SizedBox(height: 10),
                 TextButton(
                   style: TextButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,
                     iconColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 30.0),
+                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -390,13 +443,8 @@ Future<void> callApi(BuildContext context) async {
             ),
           ),
         );
-        },
-      );
-    }
-  } catch (e) {
-    if (kDebugMode) {
-      print('Erreur lors de l\'appel de l\'API: $e');
-    }
+      },
+    );
   }
 }
 
