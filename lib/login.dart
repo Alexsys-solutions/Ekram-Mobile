@@ -230,7 +230,7 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-            'pictures/marocd.png', 
+            'pictures/maroc.png', 
             width: 50, 
             height: 50, 
           ),
