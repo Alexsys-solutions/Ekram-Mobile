@@ -170,7 +170,7 @@ class Home extends StatelessWidget {
                 ),
                 _buildListTile(
                   icon: Icons.person,
-                  title: 'Profil',
+                  title: 'Profile',
                   iconColor: const Color.fromARGB(255, 118, 79, 66),
                   onTap: () {
                     Navigator.push(
@@ -430,7 +430,7 @@ class Home extends StatelessWidget {
         Tab(
           iconMargin: EdgeInsets.all(0),
           icon: Icon(Icons.list, size: 28),
-          text: 'List',
+          text: 'Liste',
         ),
         Tab(
           iconMargin: EdgeInsets.all(0),
