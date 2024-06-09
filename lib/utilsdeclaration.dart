@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 
 Widget buildCircleButton(String text, Color color) {
   return Container(
@@ -204,7 +206,6 @@ Widget buildCircleButton2(Icon icon) {
 }
 
 Future<Map<String, dynamic>?> fetchData() async {
- 
   final response = await http.get(
     Uri.parse(
         'http://98.71.95.115/orchestrator-api/processings/declaration-details/e40a702c-aeb7-4ad6-b81e-c81ca3d7839f?assignmentBCH=1'),
@@ -426,7 +427,6 @@ Widget buildTabsConfirmation() {
   );
 }
 
-
 // Widget filePickerDemo(BuildContext context) {
 //   String? _fileName;
 //   String? _path;
@@ -491,11 +491,6 @@ Widget buildTabsConfirmation() {
 //   );
 // }
 
-
-
-
-
-
 // Widget buildDropdownSearchFormField({
 //   required String label,
 //   required List<String> items,
@@ -556,4 +551,83 @@ Widget buildTabsConfirmation() {
 //     ),
 //   );
 // }
+
+
+
+class FilePickerDemo extends StatefulWidget {
+  @override
+  _FilePickerDemoState createState() => _FilePickerDemoState();
+}
+
+class _FilePickerDemoState extends State<FilePickerDemo> {
+  String? _fileName;
+  String? _path;
+
+  // Méthode pour ouvrir l'explorateur de fichiers
+  void _openFileExplorer() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image, // Limiter la sélection aux fichiers d'image
+      );
+
+      if (result != null) {
+        File file = File(result.files.single.path!);
+        setState(() {
+          _fileName = file.path.split('/').last;
+          _path = result.files.single.path!;
+        });
+      }
+    } catch (e) {
+      print("Error picking file: $e");
+    }
+  }
+
+  // Méthode pour afficher l'image sélectionnée
+  void _showImage() {
+    if (_path != null) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          content: Image.file(File(_path!)), // Afficher l'image sélectionnée
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Fermer'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        ElevatedButton.icon(
+          onPressed: _openFileExplorer,
+          icon: const Icon(Icons.file_upload),
+          label: const Text('Sélectionner un fichier'),
+        ),
+        const SizedBox(height: 20),
+        if (_fileName != null)
+          Column(
+            children: [
+              Text(
+                'Nom du fichier: $_fileName\nChemin: $_path',
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _showImage,
+                child: const Text('Afficher l\'image'),
+              ),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
 

@@ -218,7 +218,7 @@ class _InformationsDeclarantFormState extends State<InformationsDeclarantForm> {
                               controller: Num_piece_identite_declarant,
                               isValid: _numPieceValid,
                             ),
-                            
+                            FilePickerDemo(),
                             buildTextField(
                               label: 'Téléphone',
                               controller: Telephone_declarant,

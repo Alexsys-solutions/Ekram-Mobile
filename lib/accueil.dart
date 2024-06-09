@@ -597,6 +597,11 @@ Widget _buildContent(AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                 const Text(
+                                  'Distance: ?? ''}',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
                                 Text(
                                   'N°: ${item['declarationNumber'] ?? ''}',
                                   style: const TextStyle(
